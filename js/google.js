@@ -49,22 +49,24 @@ function initMap() {
 	var bounds = new google.maps.LatLngBounds();
 
 	var markers = [
-        ['학생복지관', 37.298179,126.834358],
-        ['한양대 에리카 본문', 37.296907, 126.834278],
-        ['셔틀콕',37.298725,126.838059]
+        ['sample_id', '학생복지관', 37.298179, 126.834358],
+        ['sample_id2','한양대 에리카 본문', 37.296907, 126.834278],
+        ['sample_id3','셔틀콕',37.298725, 126.838059]
     ];
-
+  var objMarkers = [];
     for(var i = 0; i < markers.length; i++) {
 
-        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        var position = new google.maps.LatLng(markers[i][2], markers[i][3]);
         bounds.extend(position);
 
         var marker = new google.maps.Marker({
             position: position,
             map: map,
-            title: markers[i][0],
-            icon: './css/'+'marker.png'
+            title: markers[i][1],
+            icon: './css/'+'marker.png',
+            id : markers[i][0]
         });
+        objMarkers.push(marker);
         /*
         google.maps.event.addListener(markers[key], 'click', function(innerKey) {
       return function() {
@@ -75,6 +77,7 @@ function initMap() {
         google.maps.event.addListener(marker, 'click', function() {
         	map.setZoom(19);
 	    	  map.setCenter(this.getPosition());
+          console.log(this.id);
         });
 
         map.fitBounds(bounds);
