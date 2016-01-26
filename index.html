@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Here my voice</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/google.css" rel="stylesheet">
+    <script src="js/google.js"></script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                        Menu
+                </li>
+                <li>
+                    <img src="./css/2.png" alt="Sample" height="180" width="180">
+                    <img class="usericon" src="./css/3.png" alt="Sample" height="50" width="50">
+                    <p class="username">홍길동</p>
+                </li>
+                <li>
+                    <a href="#">My Favorite</a>
+                </li>
+                <li>
+                    <a href="#">My Timeline</a>
+                </li>
+                <li>
+                    <a href="#">Messages</a>
+                </li>
+                <li>
+                    <a href="#">My settings</a>
+                </li>
+                <li>
+                    <a href="#">Here Voice</a>
+                </li>
+                <li>
+                    <a href="#">Help Desk</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- A map is here -->
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5tKou4qGdt8979YcsMz1JZ8mT_zsysRg&callback=initMap">
+    </script>
+</body>
+
+</html>
