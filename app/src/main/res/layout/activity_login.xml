@@ -7,12 +7,21 @@
     android:fitsSystemWindows="true"
     tools:context="net.ddns.herevoice.herevoice.LoginActivity">
 
-    <Button
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_fb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in with facebook"
-        android:id="@+id/login_fb"
+        android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <!--<Button-->
+        <!--android:id="@+id/login_fb"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="Sign in with facebook"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
 </RelativeLayout>
