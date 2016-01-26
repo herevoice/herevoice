@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Here Voice</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="login_with_facebook">Log in with facebook</string>
-    <string name="login_with_google">Sign in with Google+</string>
-    <string name="login_with_twitter">Sign in with twitter</string>
+    <string name="facebook_app_id">170799019953938</string>
 </resources>
