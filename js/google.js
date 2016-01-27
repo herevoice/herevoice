@@ -99,7 +99,11 @@ function initMap() {
         }, 1000);
         $("#timeline-name").html(this.title);
         console.log(this.getPosition().lat(), this.getPosition().lng());
-        //Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+        if(isAndroid) {
+          Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
+        }
 
         var ref = new Firebase(fireBaseURL);
         angular.element(document.getElementById('controllerElement')).scope().clearTimeline();
@@ -111,7 +115,11 @@ function initMap() {
   }
   google.maps.event.addListener(map, 'click', function() {
         console.log("reset");
-        //Android.setLocation(0,0);
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+        if(isAndroid) {
+          Android.setLocation(0,0);
+        }
   });
   var centerControlDiv = document.createElement('div');
   var centerControlDiv2 = document.createElement('div');
