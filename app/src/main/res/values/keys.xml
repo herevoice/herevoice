@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="firebase_url">https://herevoice.firebaseio.com</string>
-    <string name="facebook_app_id">170799019953938</string>
+    <string name="facebook_app_id">1057517490938136</string>
     <string name="twitter_consumer_key">OyhvdCOGk85XyZ29uY5hqfjl6</string>
     <string name="twitter_consumer_secret">0LtUr8rXeel2jHtHWT7gicRRz0TLQQ998aAeEJM3jU2HbGdToq</string>
 </resources>

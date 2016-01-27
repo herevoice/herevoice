@@ -7,6 +7,15 @@
     android:fitsSystemWindows="true"
     tools:context="net.ddns.herevoice.herevoice.LoginActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_guide"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,25 +29,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/login_with_facebook"
-            android:layout_below="@+id/login_with_google"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="88dp" />
+            android:layout_marginBottom="20dp"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/login_with_google"
             android:text="@string/login_with_google"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"/>
 
         <Button
             android:id="@+id/login_with_twitter"
             android:text="@string/login_with_twitter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="181dp"
-            android:layout_below="@+id/login_with_facebook"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 </RelativeLayout>
