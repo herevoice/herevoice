@@ -60,9 +60,11 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
     	});
     }
 
-    $scope.$watch('$timeline', function() {
-    	console.log('change detect', $scope.$timeline);
-    });
+    $scope.clearTimeline = function() {
+    	$scope.$apply(function() {
+    		$scope.$timeline = [];
+    	});	
+    }
 
     
 });

@@ -9,8 +9,8 @@ function CenterControl(controlDiv, map, univ, bounds) {
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
   controlUI.style.width = "80px";
-  controlUI.style.backgroundColor = '#E91E63';
-  controlUI.style.border = '2px solid #E91E63';
+  controlUI.style.backgroundColor = 'black';
+  controlUI.style.border = '2px solid black';
   controlUI.style.borderRadius = '3px';
   controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
   controlUI.style.cursor = 'pointer';
@@ -44,7 +44,8 @@ function initMap() {
       zoom: 17,
       mapTypeControl: true,
       streetViewControl:false,
-      scaleControl: false
+      scaleControl: false,
+      mapTypeId:google.maps.MapTypeId.SATELITE
   });
   var bounds = new google.maps.LatLngBounds();
   var fireBaseURL = "https://herevoice.firebaseio.com/";
@@ -89,33 +90,28 @@ function initMap() {
     */
     
     google.maps.event.addListener(marker, 'click', function() {
-      map.setZoom(18);
-      map.setCenter(this.getPosition());
+    	map.setZoom(18);
+  	  map.setCenter(this.getPosition());
+      this.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function(){ 
           $("#map").hide();
           $("#timeline").show();
         }, 1000);
         $("#timeline-name").html(this.title);
         console.log(this.getPosition().lat(), this.getPosition().lng());
-        Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
+        //Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
 
-        if (timeline.length != 0) {
-          timeline = [];
-        }
         var ref = new Firebase(fireBaseURL);
+        angular.element(document.getElementById('controllerElement')).scope().clearTimeline();
         ref.child("Voice").orderByChild("marker").equalTo(this.title).on("child_added", function(snapshot) {
-          // console.log(this.title);
-          // console.log(snapshot.val());
-          timeline.push(snapshot.val());
           angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
-          // angular.element(document.getElementById('controllerElement')).scope().$timeline.push(snapshot.val());
         });
     });
     map.fitBounds(bounds);
   }
   google.maps.event.addListener(map, 'click', function() {
         console.log("reset");
-        Android.setLocation(0,0);
+        //Android.setLocation(0,0);
   });
   var centerControlDiv = document.createElement('div');
   var centerControlDiv2 = document.createElement('div');
@@ -139,6 +135,6 @@ function attachPlaces(marker, places) {
     content: places
   });
   google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-          infowindow.open(map, marker);
+      infowindow.open(map, marker);
   });
 }
