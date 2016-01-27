@@ -1,5 +1,7 @@
 var app = angular.module("hereVoice", ['firebase']);  
 
+//section to save markers from database
+
 var ref = new Firebase("https://herevoice.firebaseio.com/");
 
 ref.child("Markers").orderByChild("marker").on("child_added", function(snapshot) {
