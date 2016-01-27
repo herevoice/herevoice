@@ -1,9 +1,13 @@
+
+
+
+
 var map;
 var erica = {lat: 37.296907, lng: 126.834278};
 var manripo = {lat: 36.786421, lng: 126.142350};
 
 
-function CenterControl(controlDiv, map, univ, location) {
+function CenterControl(controlDiv, map, univ, bounds) {
 
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
@@ -32,8 +36,7 @@ function CenterControl(controlDiv, map, univ, location) {
 
   // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', function() {
-    map.setCenter(location);
-    map.setZoom(17);
+    map.fitBounds(bounds);
   });
 
 }
@@ -42,18 +45,23 @@ function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	    center: erica,
 	    zoom: 17,
-	    mapTypeControl: false,
+	    mapTypeControl: true,
 	    streetViewControl:false,
-	    scaleControl: false
+	    scaleControl: false,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
 	});
 	var bounds = new google.maps.LatLngBounds();
 
 	var markers = [
         ['sample_id', '학생복지관', 37.298179, 126.834358],
-        ['sample_id2','한양대 에리카 본문', 37.296907, 126.834278],
-        ['sample_id3','셔틀콕',37.298725, 126.838059]
+        //['sample_id2','한양대 에리카 본문', 37.296907, 126.834278],
+        ['sample_id3','셔틀콕', 37.298725, 126.838059],
+        ['sample_id4','제1공학관', 37.297554 ,126.837464],
+        ['sample_id5','학술정보관',37.296744 , 126.83527],
+        ['sample_id6','스매쉬룸',37.296854 , 126.836278],
+        ['sample_id7','제3공학관',37.297499, 126.8363]
+        //,['sample_id8', '기숙사', 37.292634, 126.83616]
     ];
-  var objMarkers = [];
     for(var i = 0; i < markers.length; i++) {
 
         var position = new google.maps.LatLng(markers[i][2], markers[i][3]);
@@ -64,29 +72,32 @@ function initMap() {
             map: map,
             title: markers[i][1],
             icon: './css/'+'marker.png',
+            animation: google.maps.Animation.DROP,
             id : markers[i][0]
         });
-        objMarkers.push(marker);
         /*
-        google.maps.event.addListener(markers[key], 'click', function(innerKey) {
-      return function() {
-          infowindows[innerKey].open(map, markers[innerKey]);
-      }
-    }(key));
+        marker.addListener('click', toggleBounce);
+        
+        function toggleBounce() {
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        }
         */
+        
         google.maps.event.addListener(marker, 'click', function() {
-        	map.setZoom(19);
+        	map.setZoom(18);
 	    	  map.setCenter(this.getPosition());
-          console.log(this.id);
         });
-
         map.fitBounds(bounds);
     }
 
 	var centerControlDiv = document.createElement('div');
 	var centerControlDiv2 = document.createElement('div');
-	var centerControl = new CenterControl(centerControlDiv, map, "한양대", erica);
-	var centerControl = new CenterControl(centerControlDiv2, map, "만리포", manripo);
+	var centerControl = new CenterControl(centerControlDiv, map, "한양대", bounds);
+	var centerControl = new CenterControl(centerControlDiv2, map, "만리포", bounds);
 	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv2);
 
@@ -98,3 +109,4 @@ function initMap() {
 		
 	});
 }
+
