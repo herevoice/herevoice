@@ -61,4 +61,6 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
     $scope.$watch('$timeline', function() {
     	console.log('change detect', $scope.$timeline);
     });
+
+    
 });
