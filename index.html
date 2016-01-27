@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-glyphicons.css">
 
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 
@@ -139,9 +140,15 @@
             initMap();
         }); 
         $(".my-timeline").click(function(){
-            $("#timeline").hide();
+            $("#timeline").show();
             $("#contact").hide();
             $("#map").hide();
+            var ref = new Firebase("https://herevoice.firebaseio.com/");
+            angular.element(document.getElementById('controllerElement')).scope().clearTimeline();
+            ref.child("Voice").orderByChild("user").equalTo(sessionStorage.getItem("user")).on("child_added", function(snapshot) {
+              angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
+            });
+            $("#timeline-name").html(sessionStorage.getItem("user"));
         });
         $(".contact").click(function(){
             $("#timeline").hide();
@@ -152,6 +159,7 @@
             $("#timeline").hide();
             $("#contact").hide();
             $("#map").show(); 
+            initMap();
         });
     });
     </script>
