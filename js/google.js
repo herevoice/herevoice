@@ -31,7 +31,7 @@ function CenterControl(controlDiv, map, univ, bounds) {
   controlText.innerHTML = univ;
   controlUI.appendChild(controlText);
 
-  // Setup the click event listeners: simply set the map to Chicago.
+  // Setup the click event listeners: simply set the map to Hanyang Univ.
   controlUI.addEventListener('click', function() {
     map.fitBounds(bounds);
   });
@@ -122,7 +122,7 @@ function initMap() {
   var centerControlDiv = document.createElement('div');
   var centerControlDiv2 = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map, "한양대", bounds);
-  var centerControl = new CenterControl(centerControlDiv2, map, "만리포", bounds);
+  var centerControl = new CenterControl(centerControlDiv2, map, "later", bounds);
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv2);
   /*google.maps.event.addDomListener(window,"load",function() {
