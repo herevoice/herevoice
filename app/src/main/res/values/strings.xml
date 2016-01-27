@@ -11,4 +11,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="login_guide">페이스북, 구글 또는 페이스북으로 로그인하여 앱의 모든 기능을 이용해 보세요!</string>
 </resources>

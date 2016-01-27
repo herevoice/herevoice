@@ -281,6 +281,11 @@ public class LoginActivity extends AppCompatActivity implements
             user.child("email").setValue(authData.getProviderData().get("email"));
             user.child("profile_img").setValue(authData.getProviderData().get("profileImageURL"));
             user.child("id").setValue(authData.getProviderData().get("id"));
+            Intent intent = new Intent(this, MainActivity.class);
+
+            intent.putExtra("uid", authData.getUid());
+
+            startActivity(intent);
         }
         this.mAuthData = authData;
         /* invalidate options menu to hide/show the logout button */
