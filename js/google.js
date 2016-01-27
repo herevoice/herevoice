@@ -3,7 +3,6 @@ var erica = {lat: 37.296907, lng: 126.834278};
 var manripo = {lat: 36.786421, lng: 126.142350};
 var markers = [];
 
-var timeline = [];
 
 function CenterControl(controlDiv, map, univ, bounds) {
 
@@ -36,6 +35,7 @@ function CenterControl(controlDiv, map, univ, bounds) {
   controlUI.addEventListener('click', function() {
     map.fitBounds(bounds);
   });
+
 }
 
 function initMap() {
@@ -64,39 +64,41 @@ function initMap() {
   }
   for(var i = 0; i < markers.length; i++) {
 
-      var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-      bounds.extend(position);
+    var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+    bounds.extend(position);
 
-      var marker = new google.maps.Marker({
-          position: position,
-          map: map,
-          title: markers[i][0],
-          icon: './css/'+'marker.png',
-          animation: google.maps.Animation.DROP
-      });
-      attachPlaces(marker, places[i]);
-      
-      /*
-      marker.addListener('click', toggleBounce);
-      
-      function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
+    var marker = new google.maps.Marker({
+      position: position,
+      map: map,
+      title: markers[i][0],
+      icon: './css/'+'marker.png',
+      animation: google.maps.Animation.DROP
+    });
+    attachPlaces(marker, places[i]);
+    
+    /*
+    marker.addListener('click', toggleBounce);
+    
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
       }
-      */
-      
-      google.maps.event.addListener(marker, 'click', function() {
-        map.setZoom(18);
-        map.setCenter(this.getPosition());
-        setTimeout(function(){ 
+    }
+    */
+    
+    google.maps.event.addListener(marker, 'click', function() {
+      map.setZoom(18);
+      map.setCenter(this.getPosition());
+      setTimeout(function(){ 
           $("#map").hide();
           $("#timeline").show();
         }, 1000);
         $("#timeline-name").html(this.title);
-        console.log(this.title + " is clicked");
+        console.log(this.getPosition().lat(), this.getPosition().lng());
+        Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
+
         if (timeline.length != 0) {
           timeline = [];
         }
@@ -108,10 +110,13 @@ function initMap() {
           angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
           // angular.element(document.getElementById('controllerElement')).scope().$timeline.push(snapshot.val());
         });
-      });
-      map.fitBounds(bounds);
+    });
+    map.fitBounds(bounds);
   }
-
+  google.maps.event.addListener(map, 'click', function() {
+        console.log("reset");
+        Android.setLocation(0,0);
+  });
   var centerControlDiv = document.createElement('div');
   var centerControlDiv2 = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map, "한양대", bounds);
@@ -131,8 +136,7 @@ function initMap() {
 
 function attachPlaces(marker, places) {
   var infowindow = new google.maps.InfoWindow({
-    content: places,
-
+    content: places
   });
   google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
           infowindow.open(map, marker);
