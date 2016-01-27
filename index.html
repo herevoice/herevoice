@@ -36,7 +36,7 @@
 
 </head>
 
-<body ng-app="hereVoice" ng-controller="Auth">
+<body ng-app="hereVoice" ng-controller="Auth" id="controllerElement">
 
     <header ng-hide="$authData">
         <div class="header-content">
@@ -84,15 +84,13 @@
                             <h1 id="timeline-name"></h1>
                             <button id="back">back</button>
                             <div class="row">
-                              <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                  <img src="css/1.png">
-                                  <div class="caption">
-                                    <h3>User name</h3>
-                                    <p>content of the img</p>
-                                  </div>
+                                <div class="thumbnail" ng-repeat="a in $timeline">
+                                    <img ng-src="{{a.url}}" width="176" height="176">
+                                    <div class="caption">
+                                        <h3>{{a.user}}</h3>
+                                        <p>{{a.content}}</p>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                         </div>
                         <div hidden id="my-timeline">
