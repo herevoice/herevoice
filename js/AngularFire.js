@@ -46,19 +46,7 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
 				});
 	     	}
 	    });
-		
     };
     // section end
 
-    $scope.$timeline = [];
-
-    $scope.addToTimeline = function(voice) {
-    	$scope.$apply(function() {
-    		$scope.$timeline.push(voice);
-    	});
-    }
-
-    $scope.$watch('$timeline', function() {
-    	console.log('change detect', $scope.$timeline);
-    });
 });

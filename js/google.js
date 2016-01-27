@@ -3,7 +3,6 @@ var erica = {lat: 37.296907, lng: 126.834278};
 var manripo = {lat: 36.786421, lng: 126.142350};
 var markers = [];
 
-var timeline = [];
 
 function CenterControl(controlDiv, map, univ, bounds) {
 
@@ -36,6 +35,7 @@ function CenterControl(controlDiv, map, univ, bounds) {
   controlUI.addEventListener('click', function() {
     map.fitBounds(bounds);
   });
+
 }
 
 function initMap() {
@@ -92,24 +92,12 @@ function initMap() {
       	map.setZoom(18);
     	  map.setCenter(this.getPosition());
         setTimeout(function(){ 
-          $("#map").hide();
-          $("#timeline").show();
-        }, 1000);
-        $("#timeline-name").html(this.title);
-        console.log(this.title + " is clicked");
-        if (timeline.length != 0) {
-          timeline = [];
-        }
-        var ref = new Firebase(fireBaseURL);
-        ref.child("Voice").orderByChild("marker").equalTo(this.title).on("child_added", function(snapshot) {
-          // console.log(this.title);
-          // console.log(snapshot.val());
-          timeline.push(snapshot.val());
-          angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
-          // angular.element(document.getElementById('controllerElement')).scope().$timeline.push(snapshot.val());
+            $("#map").hide();
+            $("#timeline").show();
+          }, 1000);
+          $("#timeline-name").html(this.title);
         });
-      });
-      map.fitBounds(bounds);
+        map.fitBounds(bounds);
   }
 
 	var centerControlDiv = document.createElement('div');
