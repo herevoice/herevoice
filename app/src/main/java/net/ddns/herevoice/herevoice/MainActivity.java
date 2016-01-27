@@ -22,12 +22,15 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int INTENT_FROM_MAIN = 0;
+
+    private String uid;
 
     WebView webView;
     ProgressDialog dialog;
@@ -60,7 +63,19 @@ public class MainActivity extends AppCompatActivity
 
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
         webView.loadUrl("http://herevoice.ddns.net/index.html");
+
+        uid = getIntent().getStringExtra("uid");
+
+        Button write = (Button)findViewById(R.id.goto_write);
+        write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startWriteActivity();
+            }
+        });
     }
+
+
 
     //JavaScript와 Android가 소통하기 위한 인터페이스.
     //JavaScript에서는 아래 인터페이스의 메서드들을 사용할 수 있다.
@@ -88,13 +103,35 @@ public class MainActivity extends AppCompatActivity
         }
 
         @JavascriptInterface
-        public void startWriteActivity(){
+        public void setLocation(double x, double y){
 
-            Intent intent = new Intent(MainActivity.this, WriteActivity.class);
-            startActivityForResult(intent,INTENT_FROM_MAIN);
+            Marker.x=x;
+            Marker.y=y;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showWriteButton(!(Marker.x == 0 && Marker.y == 0));
+                }
+            });
 
         }
 
+    }
+    private void showWriteButton(boolean flag){
+        Button write = (Button)findViewById(R.id.goto_write);
+        if(flag){
+            write.setVisibility(View.VISIBLE);
+        }else{
+            write.setVisibility(View.GONE);
+        }
+    }
+
+    private void startWriteActivity(){
+        Intent intent = new Intent(MainActivity.this, WriteActivity.class);
+        intent.putExtra("x",Marker.x);
+        intent.putExtra("y",Marker.y);
+        intent.putExtra("uid",uid);
+        startActivityForResult(intent, INTENT_FROM_MAIN);
     }
 
     //WebView를 사용하기 위한 핸들러 클래스
