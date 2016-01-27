@@ -9,8 +9,8 @@ function CenterControl(controlDiv, map, univ, bounds) {
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
   controlUI.style.width = "80px";
-  controlUI.style.backgroundColor = '#E91E63';
-  controlUI.style.border = '2px solid #E91E63';
+  controlUI.style.backgroundColor = 'black';
+  controlUI.style.border = '2px solid black';
   controlUI.style.borderRadius = '3px';
   controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
   controlUI.style.cursor = 'pointer';
