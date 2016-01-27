@@ -44,7 +44,8 @@ function initMap() {
       zoom: 17,
       mapTypeControl: true,
       streetViewControl:false,
-      scaleControl: false
+      scaleControl: false,
+      mapTypeId:google.maps.MapTypeId.SATELITE
   });
   var bounds = new google.maps.LatLngBounds();
   var fireBaseURL = "https://herevoice.firebaseio.com/";
@@ -91,6 +92,7 @@ function initMap() {
     google.maps.event.addListener(marker, 'click', function() {
     	map.setZoom(18);
   	  map.setCenter(this.getPosition());
+      this.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function(){ 
           $("#map").hide();
           $("#timeline").show();
