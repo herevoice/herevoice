@@ -1,4 +1,4 @@
-var app = angular.module("hereVoice", ['firebase']);  
+var app = angular.module("hereVoice", ['firebase']);
 
 //section to save markers from database
 
@@ -25,7 +25,8 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
 				$scope.$apply(function() {
 				$scope.$authData = authData;
 				$scope.profile_URL = authData.facebook.profileImageURL;
-				$scope.profile_name = authData.facebook.displayName
+				$scope.profile_name = authData.facebook.displayName;
+				sessionStorage.setItem("user", authData.facebook.displayName);
 				});
 		        console.log("Authenticated successfully with payload:", authData);
 		        initMap(); // map reset because of hide and show in angularJS
@@ -65,6 +66,5 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
     		$scope.$timeline = [];
     	});	
     }
-
     
 });
