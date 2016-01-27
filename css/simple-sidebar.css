@@ -67,7 +67,7 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #FFFFFF;
+    color: #555;
 }
 
 .sidebar-nav li a:hover {
@@ -125,18 +125,17 @@
 }
 /*------------------------------------------------추가한거---*/
 .username{
-    padding: 20px;
-    font-size: 40px;
-    color: white;
-}
-.usericon{
-    margin-top: 20px;
-    margin-left: 20px;
-    float: left;
+    font-size: 20px;
+    margin-right: 15px;
+    text-align: center;
+    color: black;
 }
 .sidebar-brand{
     font-size: 24px;
-    color: white;
+    color: black;
+}
+.sidebar-nav{
+    color:black;
 }
 html, body, #wrapper, #page-content-wrapper, .container-fluid, .row, .col-lg-12{
 

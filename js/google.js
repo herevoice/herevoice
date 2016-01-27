@@ -41,10 +41,11 @@ function CenterControl(controlDiv, map, univ, bounds) {
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	    center: erica,
-	    zoom: 17,
+	    zoom: 18,
 	    mapTypeControl: true,
 	    streetViewControl:false,
-	    scaleControl: false
+	    scaleControl: false,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
 	});
 	var bounds = new google.maps.LatLngBounds();
   var fireBaseURL = "https://herevoice.firebaseio.com/";
@@ -91,6 +92,7 @@ function initMap() {
     google.maps.event.addListener(marker, 'click', function() {
     	map.setZoom(18);
   	  map.setCenter(this.getPosition());
+      this.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function(){ 
           $("#map").hide();
           $("#timeline").show();
@@ -127,6 +129,6 @@ function attachPlaces(marker, places) {
     content: places
   });
   google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-          infowindow.open(map, marker);
+      infowindow.open(map, marker);
   });
 }
