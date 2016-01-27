@@ -103,7 +103,7 @@ function initMap() {
   }
   google.maps.event.addListener(map, 'click', function() {
         console.log("reset");
-        Android.setLocation("reset");
+        Android.setLocation(0,0);
   });
 	var centerControlDiv = document.createElement('div');
 	var centerControlDiv2 = document.createElement('div');
@@ -124,8 +124,7 @@ function initMap() {
 
 function attachPlaces(marker, places) {
   var infowindow = new google.maps.InfoWindow({
-    content: places,
-
+    content: places
   });
   google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
           infowindow.open(map, marker);
