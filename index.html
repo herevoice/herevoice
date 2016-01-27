@@ -18,12 +18,40 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="css/google.css" rel="stylesheet">
     <script src="js/google.js"></script>
+    
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>  
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
+    <script src="js/AngularFire.js"></script>
 
 </head>
 
-<body>
+<body ng-app="hereVoice" ng-controller="Auth">
 
-    <div id="wrapper">
+    <header ng-hide="$authData">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Local Community SNS : hereVoice</h1>
+                    <h2>"Can you hear me?"</h2>
+                <hr>
+                <p>Hello, This is a simple SNS in local community. It runs test in the Hanyang Univ. Have FUN!</p>
+                <a href="#" class="btn btn-primary btn-xl page-scroll" ng-click="FBLogin()">Login with FaceBook</a>
+            </div>
+        </div>
+    </header>
+
+
+    <div id="wrapper" ng-show="$authData">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -31,30 +59,18 @@
                         Menu
                 </li>
                 <li>
-                    <img src="./css/2.png" alt="Sample" height="180" width="180">
+                    <img ng-src="{{profile_URL}}" alt="Sample" height="180" width="180">
                     <img class="usericon" src="./css/3.png" alt="Sample" height="50" width="50">
-                    <p class="username">홍길동</p>
+                    <p class="username">{{profile_name}}</p>
                 </li>
                 <li>
-                    <a href="#">My Favorite</a>
+                    <a class="map" href="#">Map</a>
                 </li>
                 <li>
-                    <a href="#">My Timeline</a>
+                    <a class="my-timeline" href="#">My Timeline</a>
                 </li>
                 <li>
-                    <a href="#">Messages</a>
-                </li>
-                <li>
-                    <a href="#">My settings</a>
-                </li>
-                <li>
-                    <a href="#">Here Voice</a>
-                </li>
-                <li>
-                    <a href="#">Help Desk</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a class="contact" href="#">Contact</a>
                 </li>
             </ul>
         </div>
@@ -67,14 +83,48 @@
                     <div class="col-lg-12">
                         <!-- A map is here -->
                         <div id="map"></div>
-                    </div>
+                        <div hidden id="timeline">
+                            <h1 id="timeline-name"></h1>
+                            <button id="back">back</button>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="css/1.png">
+                                  <div class="caption">
+                                    <h3>User name</h3>
+                                    <p>content of the img</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div hidden id="my-timeline">
+                            <h1>My Timeline</h1>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="css/1.png">
+                                  <div class="caption">
+                                    <h3>User name</h3>
+                                    <p>content of the img</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div hidden id="contact">
+                            <p>010-4658-7626</p>
+                        </div>
                 </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
+    </div></div>
 
-    </div>
-    <!-- /#wrapper -->
+   <!-- <div id="wrapper2" ng-controller="Auth" ng-hide="$authData">
+        <a class="btn btn-primary" ng-click="">Login in with Facebook <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div> -->
+
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -87,6 +137,34 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $("#back").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").show(); 
+        }); 
+        $(".my-timeline").click(function(){
+            $("#my-timeline").show();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").hide();
+        });
+        $(".contact").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").show();
+            $("#map").hide(); 
+        });
+        $(".map").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").show(); 
+        });
     });
     </script>
     <script async defer
