@@ -1,7 +1,3 @@
-
-
-
-
 var map;
 var erica = {lat: 37.296907, lng: 126.834278};
 var manripo = {lat: 36.786421, lng: 126.142350};
@@ -51,16 +47,14 @@ function initMap() {
       mapTypeId: google.maps.MapTypeId.SATELLITE
 	});
 	var bounds = new google.maps.LatLngBounds();
-
+  var fireBaseURL = "https://herevoice.firebaseio.com/";
 	var markers = [
         ['sample_id', '학생복지관', 37.298179, 126.834358],
-        //['sample_id2','한양대 에리카 본문', 37.296907, 126.834278],
         ['sample_id3','셔틀콕', 37.298725, 126.838059],
         ['sample_id4','제1공학관', 37.297554 ,126.837464],
         ['sample_id5','학술정보관',37.296744 , 126.83527],
         ['sample_id6','스매쉬룸',37.296854 , 126.836278],
         ['sample_id7','제3공학관',37.297499, 126.8363]
-        //,['sample_id8', '기숙사', 37.292634, 126.83616]
     ];
     for(var i = 0; i < markers.length; i++) {
 
@@ -105,7 +99,9 @@ function initMap() {
 	var centerControl = new CenterControl(centerControlDiv2, map, "만리포", bounds);
 	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv2);
-
+  /*google.maps.event.addDomListener(window,"load",function() {
+    map.fitBounds(bounds);
+  });*/
 	google.maps.event.addDomListener(window, "resize", function() {
 		var center = map.getCenter();
 		google.maps.event.trigger(map, "resize");
@@ -114,4 +110,3 @@ function initMap() {
 		
 	});
 }
-
