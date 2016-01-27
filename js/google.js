@@ -39,16 +39,16 @@ function CenterControl(controlDiv, map, univ, bounds) {
 }
 
 function initMap() {
-	map = new google.maps.Map(document.getElementById('map'), {
-	    center: erica,
-	    zoom: 17,
-	    mapTypeControl: true,
-	    streetViewControl:false,
-	    scaleControl: false
-	});
-	var bounds = new google.maps.LatLngBounds();
+  map = new google.maps.Map(document.getElementById('map'), {
+      center: erica,
+      zoom: 17,
+      mapTypeControl: true,
+      streetViewControl:false,
+      scaleControl: false
+  });
+  var bounds = new google.maps.LatLngBounds();
   var fireBaseURL = "https://herevoice.firebaseio.com/";
-	/* var markers = [
+  /* var markers = [
         ['학생복지관', 37.298179, 126.834358],
         ['sample_id3','셔틀콕', 37.298725, 126.838059],
         ['sample_id4','제1공학관', 37.297554 ,126.837464],
@@ -89,8 +89,8 @@ function initMap() {
     */
     
     google.maps.event.addListener(marker, 'click', function() {
-    	map.setZoom(18);
-  	  map.setCenter(this.getPosition());
+      map.setZoom(18);
+      map.setCenter(this.getPosition());
       setTimeout(function(){ 
           $("#map").hide();
           $("#timeline").show();
@@ -98,6 +98,18 @@ function initMap() {
         $("#timeline-name").html(this.title);
         console.log(this.getPosition().lat(), this.getPosition().lng());
         Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
+
+        if (timeline.length != 0) {
+          timeline = [];
+        }
+        var ref = new Firebase(fireBaseURL);
+        ref.child("Voice").orderByChild("marker").equalTo(this.title).on("child_added", function(snapshot) {
+          // console.log(this.title);
+          // console.log(snapshot.val());
+          timeline.push(snapshot.val());
+          angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
+          // angular.element(document.getElementById('controllerElement')).scope().$timeline.push(snapshot.val());
+        });
     });
     map.fitBounds(bounds);
   }
@@ -105,21 +117,21 @@ function initMap() {
         console.log("reset");
         Android.setLocation(0,0);
   });
-	var centerControlDiv = document.createElement('div');
-	var centerControlDiv2 = document.createElement('div');
-	var centerControl = new CenterControl(centerControlDiv, map, "한양대", bounds);
-	var centerControl = new CenterControl(centerControlDiv2, map, "만리포", bounds);
-	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
-	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv2);
+  var centerControlDiv = document.createElement('div');
+  var centerControlDiv2 = document.createElement('div');
+  var centerControl = new CenterControl(centerControlDiv, map, "한양대", bounds);
+  var centerControl = new CenterControl(centerControlDiv2, map, "만리포", bounds);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv2);
   /*google.maps.event.addDomListener(window,"load",function() {
     map.fitBounds(bounds);
   });*/
-	google.maps.event.addDomListener(window, "resize", function() {
-		var center = map.getCenter();
-		google.maps.event.trigger(map, "resize");
-		//map.setCenter(center); 
-		map.fitBounds(bounds);
-	});
+  google.maps.event.addDomListener(window, "resize", function() {
+    var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    //map.setCenter(center); 
+    map.fitBounds(bounds);
+  });
 }
 
 function attachPlaces(marker, places) {
