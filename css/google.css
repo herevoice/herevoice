@@ -5,13 +5,18 @@
 }
 
 #sidebar-wrapper{
-	background-color: #2C3E50;
+	background-color: #FFFFFF;
 }
 
 #page-content-wrapper{
-	background-color: #18BC9C;
+	background-color: #F2F2F2;
 }
 
 #timeline-name{
-	color:white;
+	color:black;
+}
+
+#profile{
+	border-radius: 100%;
+	margin: 15px;
 }

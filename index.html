@@ -42,7 +42,7 @@
         <div class="header-content">
             <div class="header-content-inner">
                 <h1>Local Community SNS : hereVoice</h1>
-                    <h2>"Can you hear me?"</h2>
+                    <h2>Can you hear me?</h2>
                 <hr>
                 <p>Hello, This is a simple SNS in local community. It runs test in the Hanyang Univ. Have FUN!</p>
                 <a href="#" class="btn btn-primary btn-xl page-scroll" ng-click="FBLogin()">Login with FaceBook</a>
@@ -55,11 +55,9 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                </li>
+                <li class="sidebar-brand"><img src="img/logo.png"/></li>
                 <li>
-                    <img ng-src="{{profile_URL}}" alt="Sample" height="180" width="180">
-                    <img class="usericon" src="./css/3.png" alt="Sample" height="50" width="50">
+                    <img id="profile" ng-src="{{profile_URL}}" alt="Sample" height="180" width="180">
                     <p class="username">{{profile_name}}</p>
                 </li>
                 <li>
@@ -143,6 +141,7 @@
             $("#timeline").hide();
             $("#contact").hide();
             $("#map").show(); 
+            initMap();
         }); 
         $(".my-timeline").click(function(){
             $("#my-timeline").show();

@@ -9,8 +9,8 @@ function CenterControl(controlDiv, map, univ, bounds) {
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
   controlUI.style.width = "80px";
-  controlUI.style.backgroundColor = '#E91E63';
-  controlUI.style.border = '2px solid #E91E63';
+  controlUI.style.backgroundColor = 'black';
+  controlUI.style.border = '2px solid black';
   controlUI.style.borderRadius = '3px';
   controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
   controlUI.style.cursor = 'pointer';
@@ -44,7 +44,8 @@ function initMap() {
       zoom: 17,
       mapTypeControl: true,
       streetViewControl:false,
-      scaleControl: false
+      scaleControl: false,
+      mapTypeId:google.maps.MapTypeId.SATELITE
   });
   var bounds = new google.maps.LatLngBounds();
   var fireBaseURL = "https://herevoice.firebaseio.com/";
@@ -89,8 +90,9 @@ function initMap() {
     */
     
     google.maps.event.addListener(marker, 'click', function() {
-      map.setZoom(18);
-      map.setCenter(this.getPosition());
+    	map.setZoom(18);
+  	  map.setCenter(this.getPosition());
+      this.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function(){ 
           $("#map").hide();
           $("#timeline").show();
@@ -139,6 +141,6 @@ function attachPlaces(marker, places) {
     content: places
   });
   google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-          infowindow.open(map, marker);
+      infowindow.open(map, marker);
   });
 }
