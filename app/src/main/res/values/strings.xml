@@ -4,4 +4,11 @@
     <string name="login_with_facebook">Log in with facebook</string>
     <string name="login_with_google">Sign in with Google+</string>
     <string name="login_with_twitter">Sign in with twitter</string>
+
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
