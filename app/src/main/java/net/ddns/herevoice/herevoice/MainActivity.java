@@ -1,6 +1,8 @@
 package net.ddns.herevoice.herevoice;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,14 +16,18 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int INTENT_FROM_MAIN = 0;
 
     WebView webView;
     ProgressDialog dialog;
@@ -52,6 +58,42 @@ public class MainActivity extends AppCompatActivity
         webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         webView.setWebViewClient(new WebViewClientClass());
         webView.loadUrl("http://herevoice.ddns.net/index.html");
+
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+    }
+
+    //JavaScript와 Android가 소통하기 위한 인터페이스.
+    //JavaScript에서는 아래 인터페이스의 메서드들을 사용할 수 있다.
+    //사용례
+    /*
+    <input type="button" value="Say hello" onClick="showAndroidToast('Hello Android!')" />
+    <script type="text/javascript">
+        function showAndroidToast(toast) {
+            Android.showToast(toast);
+        }
+    </script>
+    * */
+    public class WebAppInterface {
+        Context mContext;
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        /** 웹에서 함수를 호출하여 안드로이드에서 토스트 메시지를 띄웁니다. */
+        @JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        }
+
+        @JavascriptInterface
+        public void startWriteActivity(){
+
+            Intent intent = new Intent(MainActivity.this, WriteActivity.class);
+            startActivityForResult(intent,INTENT_FROM_MAIN);
+
+        }
 
     }
 
@@ -141,6 +183,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

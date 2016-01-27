@@ -39,11 +39,26 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".TwitterOAuthActivity" />
-        <activity android:name=".GoogleOAuthActivity"></activity>
+        <activity android:name=".GoogleOAuthActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+
+
+
+
+
+        <activity android:name=".WriteActivity"></activity>
+
+
+
+
+
+
+
     </application>
 
 </manifest>
