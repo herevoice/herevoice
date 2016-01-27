@@ -1,5 +1,16 @@
 var app = angular.module("hereVoice", ['firebase']);  
 
+var ref = new Firebase("https://herevoice.firebaseio.com/");
+
+ref.child("Markers").orderByChild("marker").on("child_added", function(snapshot) {
+    console.log(snapshot.val());
+    var temp = [];
+    temp.push(snapshot.val().title);
+    temp.push(snapshot.val().latitude);
+    temp.push(snapshot.val().longitude);
+    markers.push(temp);
+});
+
 app.controller("Auth", function ($scope, $firebaseArray, $http) {
 	var firebaseURL = "https://herevoice.firebaseio.com/";
 	$scope.FBLogin = function () {
@@ -15,7 +26,7 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
 				$scope.profile_name = authData.facebook.displayName
 				});
 		        console.log("Authenticated successfully with payload:", authData);
-		        initMap();
+		        initMap(); // map reset because of hide and show in angularJS
 		      
 		    // do something with the login info
 
