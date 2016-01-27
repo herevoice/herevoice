@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity
         });
         webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         webView.setWebViewClient(new WebViewClientClass());
-        webView.loadUrl("http://herevoice.ddns.net/index.html");
 
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        webView.loadUrl("http://herevoice.ddns.net/index.html");
     }
 
     //JavaScript와 Android가 소통하기 위한 인터페이스.
