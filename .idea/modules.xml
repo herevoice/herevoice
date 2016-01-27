@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Here Voice.iml" filepath="$PROJECT_DIR$/Here Voice.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/herevoice.iml" filepath="$PROJECT_DIR$/herevoice.iml" />
     </modules>
   </component>
 </project>
