@@ -90,9 +90,14 @@ function initMap() {
         google.maps.event.addListener(marker, 'click', function() {
         	map.setZoom(18);
 	    	  map.setCenter(this.getPosition());
-        });
-        map.fitBounds(bounds);
-    }
+          setTimeout(function(){ 
+              $("#map").hide();
+              $("#timeline").show();
+            }, 1000);
+            $("#timeline-name").html(this.title);
+          });
+          map.fitBounds(bounds);
+        }
 
 	var centerControlDiv = document.createElement('div');
 	var centerControlDiv2 = document.createElement('div');

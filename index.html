@@ -36,25 +36,13 @@
                     <p class="username">홍길동</p>
                 </li>
                 <li>
-                    <a href="#">My Favorite</a>
+                    <a class="map" href="#">Map</a>
                 </li>
                 <li>
-                    <a href="#">My Timeline</a>
+                    <a class="my-timeline" href="#">My Timeline</a>
                 </li>
                 <li>
-                    <a href="#">Messages</a>
-                </li>
-                <li>
-                    <a href="#">My settings</a>
-                </li>
-                <li>
-                    <a href="#">Here Voice</a>
-                </li>
-                <li>
-                    <a href="#">Help Desk</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a class="contact" href="#">Contact</a>
                 </li>
             </ul>
         </div>
@@ -67,7 +55,38 @@
                     <div class="col-lg-12">
                         <!-- A map is here -->
                         <div id="map"></div>
-                    </div>
+                        <div hidden id="timeline">
+                            <h1 id="timeline-name"></h1>
+                            <button id="back">back</button>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="css/1.png">
+                                  <div class="caption">
+                                    <h3>User name</h3>
+                                    <p>content of the img</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div hidden id="my-timeline">
+                            <h1>My Timeline</h1>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="css/1.png">
+                                  <div class="caption">
+                                    <h3>User name</h3>
+                                    <p>content of the img</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div hidden id="contact">
+                            <p>010-4658-7626</p>
+                        </div>
                 </div>
             </div>
         </div>
@@ -87,6 +106,34 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $("#back").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").show(); 
+        }); 
+        $(".my-timeline").click(function(){
+            $("#my-timeline").show();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").hide();
+        });
+        $(".contact").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").show();
+            $("#map").hide(); 
+        });
+        $(".map").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").show(); 
+        });
     });
     </script>
     <script async defer
