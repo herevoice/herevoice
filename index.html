@@ -26,6 +26,8 @@
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-glyphicons.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
@@ -81,31 +83,25 @@
                         <!-- A map is here -->
                         <div id="map"></div>
                         <div hidden id="timeline">
-                            <h1 id="timeline-name"></h1>
-                            <button id="back">back</button>
-                            <div class="row">
-                                <div class="thumbnail" ng-repeat="a in $timeline">
-                                    <img ng-src="{{a.url}}" width="176" height="176">
-                                    <div class="caption">
-                                        <h3>{{a.user}}</h3>
+                            <ul class="timeline">
+                                <li><div class="tldate" id="timeline-name"></div></li>
+
+                                <li ng-repeat="a in $timeline" class="{{$index % 2 == 1 ? 'timeline-inverted' : ''}}">
+                                    <div class="tl-circ"></div>
+                                    <div class="timeline-panel">
+                                      <div class="tl-heading">
+                                        <!-- <h4>Surprising Headline Right Here</h4> -->
+                                        <p><small class="text-muted">{{a.user}}</small></p>
+                                      </div>
+                                      <div class="tl-body">
+                                        <p>
+                                            <img ng-src="{{a.url}}">
+                                        </p>
                                         <p>{{a.content}}</p>
+                                      </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div hidden id="my-timeline">
-                            <h1>My Timeline</h1>
-                            <div class="row">
-                              <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                  <img src="css/1.png">
-                                  <div class="caption">
-                                    <h3>User name</h3>
-                                    <p>content of the img</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                                </li>
+                            </ul>
                         </div>
                         <div hidden id="contact">
                             <p>010-4658-7626</p>
@@ -137,26 +133,22 @@
     <script>
     $(document).ready(function(){
         $("#back").click(function(){
-            $("#my-timeline").hide();
             $("#timeline").hide();
             $("#contact").hide();
             $("#map").show(); 
             initMap();
         }); 
         $(".my-timeline").click(function(){
-            $("#my-timeline").show();
             $("#timeline").hide();
             $("#contact").hide();
             $("#map").hide();
         });
         $(".contact").click(function(){
-            $("#my-timeline").hide();
             $("#timeline").hide();
             $("#contact").show();
             $("#map").hide(); 
         });
         $(".map").click(function(){
-            $("#my-timeline").hide();
             $("#timeline").hide();
             $("#contact").hide();
             $("#map").show(); 
