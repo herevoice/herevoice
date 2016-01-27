@@ -138,6 +138,6 @@
     color:black;
 }
 html, body, #wrapper, #page-content-wrapper, .container-fluid, .row, .col-lg-12{
-
+    background-color: #F2F2F2;
     height: 100%;
 }

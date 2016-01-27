@@ -99,25 +99,27 @@ function initMap() {
         }, 1000);
         $("#timeline-name").html(this.title);
         console.log(this.getPosition().lat(), this.getPosition().lng());
-        Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
-
-        if (timeline.length != 0) {
-          timeline = [];
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+        if(isAndroid) {
+          Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
         }
+
         var ref = new Firebase(fireBaseURL);
+        angular.element(document.getElementById('controllerElement')).scope().clearTimeline();
         ref.child("Voice").orderByChild("marker").equalTo(this.title).on("child_added", function(snapshot) {
-          // console.log(this.title);
-          // console.log(snapshot.val());
-          timeline.push(snapshot.val());
           angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
-          // angular.element(document.getElementById('controllerElement')).scope().$timeline.push(snapshot.val());
         });
     });
     map.fitBounds(bounds);
   }
   google.maps.event.addListener(map, 'click', function() {
         console.log("reset");
-        Android.setLocation(0,0);
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+        if(isAndroid) {
+          Android.setLocation(0,0);
+        }
   });
   var centerControlDiv = document.createElement('div');
   var centerControlDiv2 = document.createElement('div');
