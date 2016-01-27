@@ -96,8 +96,8 @@ function initMap() {
           $("#timeline").show();
         }, 1000);
         $("#timeline-name").html(this.title);
-        console.log(this.getPosition().toJSON());
-        Android.setLocation(this.getPosition().toJSON());
+        console.log(this.getPosition().lat(), this.getPosition().lng());
+        Android.setLocation(this.getPosition().lat(), this.getPosition().lng());
     });
     map.fitBounds(bounds);
   }
