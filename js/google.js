@@ -1,0 +1,117 @@
+
+
+
+
+var map;
+var erica = {lat: 37.296907, lng: 126.834278};
+var manripo = {lat: 36.786421, lng: 126.142350};
+
+
+function CenterControl(controlDiv, map, univ, bounds) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.width = "80px";
+  controlUI.style.backgroundColor = '#E91E63';
+  controlUI.style.border = '2px solid #E91E63';
+  controlUI.style.borderRadius = '3px';
+  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginBottom = '12px';
+  controlUI.style.marginRight = '5px';
+  controlUI.style.textAlign = 'center';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.color = 'white';
+  controlText.style.fontFamily = 'Helvetica ';
+  controlText.style.fontSize = '16px';
+  controlText.style.fontWeight = 'bold';
+  controlText.style.lineHeight = '38px';
+  controlText.style.paddingLeft = '5px';
+  controlText.style.paddingRight = '5px';
+  controlText.innerHTML = univ;
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlUI.addEventListener('click', function() {
+    map.fitBounds(bounds);
+  });
+
+}
+
+function initMap() {
+	map = new google.maps.Map(document.getElementById('map'), {
+	    center: erica,
+	    zoom: 17,
+	    mapTypeControl: true,
+	    streetViewControl:false,
+	    scaleControl: false,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+	});
+	var bounds = new google.maps.LatLngBounds();
+
+	var markers = [
+        ['sample_id', '학생복지관', 37.298179, 126.834358],
+        //['sample_id2','한양대 에리카 본문', 37.296907, 126.834278],
+        ['sample_id3','셔틀콕', 37.298725, 126.838059],
+        ['sample_id4','제1공학관', 37.297554 ,126.837464],
+        ['sample_id5','학술정보관',37.296744 , 126.83527],
+        ['sample_id6','스매쉬룸',37.296854 , 126.836278],
+        ['sample_id7','제3공학관',37.297499, 126.8363]
+        //,['sample_id8', '기숙사', 37.292634, 126.83616]
+    ];
+    for(var i = 0; i < markers.length; i++) {
+
+        var position = new google.maps.LatLng(markers[i][2], markers[i][3]);
+        bounds.extend(position);
+
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][1],
+            icon: './css/'+'marker.png',
+            animation: google.maps.Animation.DROP,
+            id : markers[i][0]
+        });
+        /*
+        marker.addListener('click', toggleBounce);
+        
+        function toggleBounce() {
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        }
+        */
+        
+        google.maps.event.addListener(marker, 'click', function() {
+        	map.setZoom(18);
+	    	  map.setCenter(this.getPosition());
+          setTimeout(function(){ 
+              $("#map").hide();
+              $("#timeline").show();
+            }, 1000);
+            $("#timeline-name").html(this.title);
+          });
+          map.fitBounds(bounds);
+        }
+
+	var centerControlDiv = document.createElement('div');
+	var centerControlDiv2 = document.createElement('div');
+	var centerControl = new CenterControl(centerControlDiv, map, "한양대", bounds);
+	var centerControl = new CenterControl(centerControlDiv2, map, "만리포", bounds);
+	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+	map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv2);
+
+	google.maps.event.addDomListener(window, "resize", function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, "resize");
+		//map.setCenter(center); 
+		map.fitBounds(bounds);
+		
+	});
+}
+

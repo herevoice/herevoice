@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Here my voice</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/google.css" rel="stylesheet">
+    <script src="js/google.js"></script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                        Menu
+                </li>
+                <li>
+                    <img src="./css/2.png" alt="Sample" height="180" width="180">
+                    <img class="usericon" src="./css/3.png" alt="Sample" height="50" width="50">
+                    <p class="username">홍길동</p>
+                </li>
+                <li>
+                    <a class="map" href="#">Map</a>
+                </li>
+                <li>
+                    <a class="my-timeline" href="#">My Timeline</a>
+                </li>
+                <li>
+                    <a class="contact" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- A map is here -->
+                        <div id="map"></div>
+                        <div hidden id="timeline">
+                            <h1 id="timeline-name"></h1>
+                            <button id="back">back</button>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="css/1.png">
+                                  <div class="caption">
+                                    <h3>User name</h3>
+                                    <p>content of the img</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div hidden id="my-timeline">
+                            <h1>My Timeline</h1>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="css/1.png">
+                                  <div class="caption">
+                                    <h3>User name</h3>
+                                    <p>content of the img</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div hidden id="contact">
+                            <p>010-4658-7626</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $("#back").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").show(); 
+        }); 
+        $(".my-timeline").click(function(){
+            $("#my-timeline").show();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").hide();
+        });
+        $(".contact").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").show();
+            $("#map").hide(); 
+        });
+        $(".map").click(function(){
+            $("#my-timeline").hide();
+            $("#timeline").hide();
+            $("#contact").hide();
+            $("#map").show(); 
+        });
+    });
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5tKou4qGdt8979YcsMz1JZ8mT_zsysRg&callback=initMap">
+    </script>
+</body>
+
+</html>
