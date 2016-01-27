@@ -1,6 +1,7 @@
 var map;
 var erica = {lat: 37.296907, lng: 126.834278};
 var manripo = {lat: 36.786421, lng: 126.142350};
+var markers = [];
 
 
 function CenterControl(controlDiv, map, univ, bounds) {
@@ -43,55 +44,61 @@ function initMap() {
 	    zoom: 17,
 	    mapTypeControl: true,
 	    streetViewControl:false,
-	    scaleControl: false,
-      mapTypeId: google.maps.MapTypeId.SATELLITE
+	    scaleControl: false
 	});
 	var bounds = new google.maps.LatLngBounds();
   var fireBaseURL = "https://herevoice.firebaseio.com/";
-	var markers = [
-        ['sample_id', '학생복지관', 37.298179, 126.834358],
+	/* var markers = [
+        ['학생복지관', 37.298179, 126.834358],
         ['sample_id3','셔틀콕', 37.298725, 126.838059],
         ['sample_id4','제1공학관', 37.297554 ,126.837464],
         ['sample_id5','학술정보관',37.296744 , 126.83527],
         ['sample_id6','스매쉬룸',37.296854 , 126.836278],
         ['sample_id7','제3공학관',37.297499, 126.8363]
-    ];
-    for(var i = 0; i < markers.length; i++) {
+    ]; */
+  
+  var places = [];
+  for(var i=0;i<markers.length;i++){
+    places[i] = markers[i][0];
+    console.log(places[i]);
+  }
+  for(var i = 0; i < markers.length; i++) {
 
-        var position = new google.maps.LatLng(markers[i][2], markers[i][3]);
-        bounds.extend(position);
+      var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+      bounds.extend(position);
 
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: markers[i][1],
-            icon: './css/'+'marker.png',
-            animation: google.maps.Animation.DROP,
-            id : markers[i][0]
+      var marker = new google.maps.Marker({
+          position: position,
+          map: map,
+          title: markers[i][0],
+          icon: './css/'+'marker.png',
+          animation: google.maps.Animation.DROP
+      });
+      attachPlaces(marker, places[i]);
+      
+      /*
+      marker.addListener('click', toggleBounce);
+      
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+      */
+      
+      google.maps.event.addListener(marker, 'click', function() {
+      	map.setZoom(18);
+    	  map.setCenter(this.getPosition());
+        setTimeout(function(){ 
+            $("#map").hide();
+            $("#timeline").show();
+          }, 1000);
+          $("#timeline-name").html(this.title);
         });
-        /*
-        marker.addListener('click', toggleBounce);
-        
-        function toggleBounce() {
-          if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        }
-        */
-        
-        google.maps.event.addListener(marker, 'click', function() {
-        	map.setZoom(18);
-	    	  map.setCenter(this.getPosition());
-          setTimeout(function(){ 
-              $("#map").hide();
-              $("#timeline").show();
-            }, 1000);
-            $("#timeline-name").html(this.title);
-          });
-          map.fitBounds(bounds);
-        }
+        map.fitBounds(bounds);
+  }
 
 	var centerControlDiv = document.createElement('div');
 	var centerControlDiv2 = document.createElement('div');
@@ -107,6 +114,15 @@ function initMap() {
 		google.maps.event.trigger(map, "resize");
 		//map.setCenter(center); 
 		map.fitBounds(bounds);
-		
 	});
+}
+
+function attachPlaces(marker, places) {
+  var infowindow = new google.maps.InfoWindow({
+    content: places,
+
+  });
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+          infowindow.open(map, marker);
+  });
 }
