@@ -29,7 +29,6 @@
     <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-glyphicons.css">
 
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 
@@ -86,13 +85,32 @@
                         <div hidden id="timeline">
                             <ul class="timeline">
                                 <li><div class="tldate" id="timeline-name"></div></li>
-
                                 <li ng-repeat="a in $timeline" class="{{$index % 2 == 1 ? 'timeline-inverted' : ''}}">
                                     <div class="tl-circ"></div>
                                     <div class="timeline-panel">
                                       <div class="tl-heading">
                                         <!-- <h4>Surprising Headline Right Here</h4> -->
                                         <p><small class="text-muted">{{a.user}}</small></p>
+                                      </div>
+                                      <div class="tl-body">
+                                        <p>
+                                            <img ng-src="{{a.url}}">
+                                        </p>
+                                        <p>{{a.content}}</p>
+                                      </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div hidden id="mytimeline">
+                            <ul class="timeline">
+                                <li><div class="tldate" id="timeline-name2" style="color:black"></div></li>
+                                <li ng-repeat="a in $timeline" class="{{$index % 2 == 1 ? 'timeline-inverted' : ''}}">
+                                    <div class="tl-circ"></div>
+                                    <div class="timeline-panel">
+                                      <div class="tl-heading">
+                                        <!-- <h4>Surprising Headline Right Here</h4> -->
+                                        <p><small class="text-muted">{{a.marker}}</small></p>
                                       </div>
                                       <div class="tl-body">
                                         <p>
@@ -140,7 +158,8 @@
             initMap();
         }); 
         $(".my-timeline").click(function(){
-            $("#timeline").show();
+            $("#mytimeline").show();
+            $("#timeline").hide();
             $("#contact").hide();
             $("#map").hide();
             var ref = new Firebase("https://herevoice.firebaseio.com/");
@@ -148,7 +167,7 @@
             ref.child("Voice").orderByChild("user").equalTo(sessionStorage.getItem("user")).on("child_added", function(snapshot) {
               angular.element(document.getElementById('controllerElement')).scope().addToTimeline(snapshot.val());
             });
-            $("#timeline-name").html(sessionStorage.getItem("user"));
+            $("#timeline-name2").html(sessionStorage.getItem("user"));
         });
         $(".contact").click(function(){
             $("#timeline").hide();
