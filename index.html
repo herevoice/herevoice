@@ -161,6 +161,7 @@
     <script>
     $(document).ready(function(){
         $("#back").click(function(){
+            $("#mytimeline").hide();
             $("#timeline").hide();
             $("#contact").hide();
             $("#map").show(); 
@@ -180,11 +181,13 @@
         });
         $(".contact").click(function(){
             $("#timeline").hide();
+            $("#mytimeline").hide();
             $("#contact").show();
             $("#map").hide(); 
         });
         $(".map").click(function(){
             $("#timeline").hide();
+            $("#mytimeline").hide();
             $("#contact").hide();
             $("#map").show(); 
             initMap();

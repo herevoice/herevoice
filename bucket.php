@@ -9,7 +9,7 @@
 		ini_set('display_errors','On');
 		$uploaddir = '/tmp/';
 		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+		if (move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $uploadfile)) {
 		
 		} else {
 		
@@ -33,7 +33,7 @@
 		// Upload a publicly accessible file. File size, file type, and md5 hash are automatically calculated by the SDK
 			$result = $s3->putObject(array(
 			'Bucket' => "herevoice",
-			'Key'    => $_FILES['userfile']['name'],
+			'Key'    => $_FILES['uploaded_file']['name'],
 			'SourceFile'   => $uploadfile,
 			'ACL'    => 'public-read',
 			'ContentType'=>mime_content_type($uploadfile)
