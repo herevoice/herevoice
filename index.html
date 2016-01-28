@@ -33,15 +33,24 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 
-
-
     <script src="js/AngularFire.js"></script>
 
+<!--
+    <script type="text/javascript">
+        window.onload = function() {
+            var ua = navigator.userAgent.toLowerCase();
+            var isAndroid = ua.indexOf("android") > -1;
+
+            angular.element(document.getElementById('controllerElement')).scope().setIsAndroid(isAndroid);
+        }
+    </script>
+-->
 </head>
 
 <body ng-app="hereVoice" ng-controller="Auth" id="controllerElement">
 
-    <header ng-hide="$authData">
+
+    <header ng-hide="$authData || isAndroid">
         <div class="header-content">
             <div class="header-content-inner">
                 <h1>Local Community SNS : hereVoice</h1>
@@ -54,7 +63,7 @@
     </header>
 
 
-    <div id="wrapper" ng-show="$authData">
+    <div id="wrapper" ng-show="$authData || isAndroid">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">

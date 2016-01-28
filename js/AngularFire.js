@@ -59,12 +59,19 @@ app.controller("Auth", function ($scope, $firebaseArray, $http) {
     	$scope.$apply(function() {
     		$scope.$timeline.push(voice);
     	});
-    }
+    };
 
     $scope.clearTimeline = function() {
     	$scope.$apply(function() {
     		$scope.$timeline = [];
     	});	
+    };
+
+    $scope.isAndroid = false;
+
+    $scope.setIsAndroid = function(flag) {
+        $scope.$apply(function() {
+            $scope.isAndroid = flag;
+        });
     }
-    
 });
